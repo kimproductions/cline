@@ -58,7 +58,7 @@
 				{
 					"id": "my-cline-fork-ActivityBar",
 					"title": "My Cline Fork",
-					"icon": "$(robot)"
+					"icon": "$(code)"
 				}
 			]
 		},

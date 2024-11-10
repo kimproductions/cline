@@ -104,7 +104,7 @@ To contribute to the project, start by exploring [open issues](https://github.co
 <details>
 <summary>Local Development Instructions</summary>
 
-1. Clone the repository *(Requires [git-lfs](https://git-lfs.com/))*:
+1. Clone the repository _(Requires [git-lfs](https://git-lfs.com/))_:
     ```bash
     git clone https://github.com/cline/cline.git
     ```
@@ -123,3 +123,11 @@ To contribute to the project, start by exploring [open issues](https://github.co
 ## License
 
 [Apache 2.0 © 2024 Cline Bot Inc.](./LICENSE)
+
+for extension:
+
+npm run package
+
+npx @vscode/vsce package
+
+then install the package in the extension install from vsix
