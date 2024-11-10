@@ -42,7 +42,15 @@
 		"ai",
 		"llama"
 	],
-	"activationEvents": [],
+	"activationEvents": [
+		"onView:my-cline-fork.SidebarProvider",
+		"onCommand:my-cline-fork.plusButtonClicked",
+		"onCommand:my-cline-fork.historyButtonClicked",
+		"onCommand:my-cline-fork.popoutButtonClicked",
+		"onCommand:my-cline-fork.settingsButtonClicked",
+		"onCommand:my-cline-fork.openInNewTab",
+		"onUri"
+	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"viewsContainers": {
