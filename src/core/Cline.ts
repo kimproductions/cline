@@ -47,6 +47,7 @@ import { truncateHalfConversation } from "./sliding-window"
 import { ClineProvider, GlobalFileNames } from "./webview/ClineProvider"
 import { showOmissionWarning } from "../integrations/editor/detect-omission"
 import { BrowserSession } from "../services/browser/BrowserSession"
+import { notificationService, getNotificationForAskType, getNotificationForSayType } from "../services/notifications"
 
 const cwd =
 	vscode.workspace.workspaceFolders?.map((folder) => folder.uri.fsPath).at(0) ?? path.join(os.homedir(), "Desktop") // may or may not exist but fs checking existence would immediately ask for permission which would be bad UX, need to come up with a better solution
@@ -226,6 +227,18 @@ export class Cline {
 		if (this.abort) {
 			throw new Error("Cline instance aborted")
 		}
+
+		// notification:
+		if (partial === undefined || partial === false) {
+			const notification = getNotificationForAskType(type, text)
+			if (notification?.title && notification?.message) {
+				await notificationService.showNotification(
+					notification.title,
+					notification.message,
+					notification.type ?? "standard"
+				)
+			}
+		}
 		let askTs: number
 		if (partial !== undefined) {
 			const lastMessage = this.clineMessages.at(-1)
@@ -321,6 +334,18 @@ export class Cline {
 	async say(type: ClineSay, text?: string, images?: string[], partial?: boolean): Promise<undefined> {
 		if (this.abort) {
 			throw new Error("Cline instance aborted")
+		}
+
+		//notification
+		if ((partial === undefined || partial === false) && type !== "api_req_started") {
+			const notification = getNotificationForSayType(type, text)
+			if (notification?.title && notification?.message) {
+				await notificationService.showNotification(
+					notification.title,
+					notification.message,
+					notification.type ?? "standard"
+				)
+			}
 		}
 
 		if (partial !== undefined) {
